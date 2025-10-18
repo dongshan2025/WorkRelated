@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>aliyun-rtc-sdk quick start</title>
+    <link rel="stylesheet" href="https://g.alicdn.com/code/lib/bootstrap/5.3.0/css/bootstrap.min.css" />
+    <style>
+      .video {
+        display: inline-block;
+        width: 320px;
+        height: 180px;
+        margin-right: 8px;
+        margin-bottom: 8px;
+        background-color: black;
+      }
+    </style>
+  </head>
+  <body class="container p-2">
+    <h1>Web端测试</h1>
+
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+      <div id="loginToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <strong class="me-auto">登录消息</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="loginToastBody"></div>
+      </div>
+
+      <div id="onlineToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <strong class="me-auto">用户上线</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="onlineToastBody"></div>
+      </div>
+
+      <div id="offlineToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <strong class="me-auto">用户下线</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="offlineToastBody"></div>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-6">
+        <form id="loginForm">
+          <div class="form-group mb-2">
+            <label for="channelId" class="form-label">频道号</label>
+            <input class="form-control" id="channelId" />
+          </div>
+          <div class="form-group mb-2">
+            <label for="userId" class="form-label">用户ID</label>
+            <input class="form-control" id="userId" />
+          </div>
+          <button id="joinBtn" type="submit" class="btn btn-primary mb-2">加入频道</button>
+          <button id="leaveBtn" type="button" class="btn btn-secondary mb-2" disabled>离开频道</button>
+        </form>
+    
+        <div class="mt-3">
+          <h4>本地预览</h4>
+          <video
+            id="localPreviewer"
+            muted
+            class="video"
+          ></video>
+        </div>
+      </div>
+      <div class="col-6">
+        <h4>远端用户</h4>
+        <div id="remoteVideoContainer"></div>
+      </div>
+    </div>
+
+    <script src="https://g.alicdn.com/code/lib/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://g.alicdn.com/code/lib/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+    <script src="https://g.alicdn.com/apsara-media-box/imp-web-rtc/6.14.1/aliyun-rtc-sdk.js"></script>
+    <script src="./quick.js"></script>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+# 第一阶段：编译阶段
+FROM golang:alpine
+# 为我们的镜像设置必要的环境变量
+ENV GO111MODULE=on \
+    CGO_ENABLED=0 \
+    GOOS=linux \
+    GOARCH=amd64
+# 移动到工作目录：/build，将在容器内创建目录/build
+WORKDIR /build
+# 将当前目录下的所有文件复制到容器内的/build目录内
+COPY . .
+# 将我们的代码编译成二进制可执行文件，该二进制文件将生成在容器内的/build目录内，因为我们的当前工作目录是/build
+RUN go build -o main .
+# 更改当前工作目录
+WORKDIR /dist
+# 将编译好的可执行文件复制到该目录下
+RUN cp /build/main .
+# 删除无用的文件
+RUN cd / && rm -rf /build
+# 声明服务端口
+EXPOSE 8888
+# 启动容器时运行的命令
+CMD ["/dist/main"]
+# docker build -t my-app:v1 .
+# docker run --name myapp -d -p 8888:8888 my-app:v1

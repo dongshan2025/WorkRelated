@@ -43,6 +43,46 @@
             "mode": "auto",
             "program": "${workspaceFolder}/MongoDB",
             "args":[]
+        },
+        {
+            "name": "WebSocket",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/WebSocket",
+            "args":[]
+        },
+        {
+            "name": "Viper",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/Viper",
+            "args":[]
+        },
+        {
+            "name": "Zap",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/Zap",
+            "args":[]
+        },
+        {
+            "name": "WebSocket2/chat",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/WebSocket2/chat",
+            "args":[]
+        },
+        {
+            "name": "AWS",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/AWS",
+            "args":[]
         }
     ]
 }

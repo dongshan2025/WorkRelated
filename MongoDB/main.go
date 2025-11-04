@@ -33,6 +33,57 @@ func init() {
 }
 
 func main() {
+	// SensitiveWordInsert()
+	// IncrSensitiveWordStatics()
+	MuteTimesUpdate("P312e64", "牛逼")
+
+	// deviceId := "00-50-56-C0-00-01"
+	// account := "15535871542"
+	// t := time.Now()
+	// timestamp := time.Now().Unix()
+
+	// time1 := time.Unix(0, 0).Format(time.DateTime)
+
+	// fmt.Println(time1)
+	// fmt.Println()
+	// pcl, err := FindOneX(deviceId, account, timestamp)
+	// if err != nil && pcl == nil {
+	// 	// 查询有错
+	// 	fmt.Printf("查询过程中出错，错误信息为：%v", err)
+	// 	return
+	// }
+
+	// if err == nil && pcl == nil {
+	// 	// 没有数据
+	// 	fmt.Println("没有查询到数据")
+	// 	// 插入新数据
+	// 	err := InsertOneX(deviceId, account, timestamp)
+	// 	if err != nil {
+	// 		fmt.Printf("插入出错，错误信息为：%v", err)
+	// 	}
+
+	// 	return
+	// }
+
+	// fmt.Println("查询到数据")
+	// // 做更新操作
+	// err = UpdateOneX(deviceId, account, timestamp, 1)
+	// if err != nil {
+	// 	fmt.Printf("更新出错，错误信息为：%v", err)
+	// 	return
+	// }
+
+	// info := fmt.Sprintf("%s:%s:%d", macAddr, ipAddr, timestamp)
+	// encodedString := base64.StdEncoding.EncodeToString([]byte(info))
+	// fmt.Printf("编码后的字符串为：%s\n", encodedString)
+
+	// decodedString, err := base64.StdEncoding.DecodeString(encodedString)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// 	return
+	// }
+	// fmt.Printf("解码后的字符串为：%s\n", decodedString)
+
 	// InsertOne()
 	// InsertMultiple()
 	// FindOne()
@@ -60,7 +111,7 @@ func main() {
 	// RTCCreate()
 	// RTCQuery()
 	// RTCUpdateStauts()
-	UpdateOneMulField()
+	// UpdateOneMulField()
 }
 
 func Example() {

@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>WebSocket Chat</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px }
+    #messages { border: 1px solid #ddd; height: 300px; overflow: auto; padding: 8px }
+    #form { margin-top: 10px }
+  </style>
+</head>
+<body>
+  <h2>WebSocket Chat (gorilla/websocket)</h2>
+  <div>
+    <label>Username: <input id="username" placeholder="your name" /></label>
+    <label>Room: <input id="room" placeholder="(optional) room name" /></label>
+    <label>Private to: <input id="target" placeholder="(optional) username" /></label>
+  </div>
+  <div style="margin-top:8px">
+    <button id="btnListRooms">List rooms</button>
+    <button id="btnListUsers">List users</button>
+    <button id="btnListRoomUsers">List users in room</button>
+  </div>
+  <div id="messages"></div>
+
+  <form id="form">
+    <input id="input" autocomplete="off" placeholder="Type a message" style="width:60%" />
+    <button>Send</button>
+  </form>
+
+  <script>
+  const loc = window.location;
+  const wsProto = loc.protocol === 'https:' ? 'wss' : 'ws';
+  const wsUrl = wsProto + '://' + loc.host + '/ws';
+  const ws = new WebSocket(wsUrl);
+  const messages = document.getElementById('messages');
+  const input = document.getElementById('input');
+  const form = document.getElementById('form');
+
+  ws.onopen = () => {
+    append('connected');
+    // send join message if username provided
+    const name = document.getElementById('username').value;
+    const room = document.getElementById('room').value;
+    if (name) {
+      const join = { type: 'join', username: name, room: room };
+      ws.send(JSON.stringify(join));
+    }
+  };
+  ws.onmessage = (evt) => {
+    // try parse JSON
+    try {
+      const m = JSON.parse(evt.data);
+      if (m.type === 'message' || m.type === 'system') {
+        const text = (m.timestamp ? '['+m.timestamp+'] ' : '') + (m.username ? m.username+': ' : '') + m.msg + (m.target ? ' (to '+m.target+')' : '') + (m.room ? ' [room:'+m.room+']' : '');
+        append(text);
+        return;
+      }
+      if (m.type === 'rooms') {
+        append('rooms: ' + (m.rooms || []).join(', '));
+        return;
+      }
+      if (m.type === 'users') {
+        append('users: ' + (m.users || []).join(', '));
+        return;
+      }
+      if (m.type === 'room_users') {
+        append('room users: ' + (m.users || []).join(', '));
+        return;
+      }
+    } catch (e) {
+      // not JSON, fall through
+    }
+    append(evt.data);
+  };
+  ws.onclose = () => append('disconnected');
+  ws.onerror = (e) => append('error');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const text = input.value;
+    if (!text) return;
+    const name = document.getElementById('username').value;
+    const room = document.getElementById('room').value;
+    const target = document.getElementById('target').value;
+    const msg = { type: 'message', username: name, room: room, target: target, msg: text };
+    ws.send(JSON.stringify(msg));
+    input.value = '';
+  });
+
+  document.getElementById('btnListRooms').addEventListener('click', (e) => {
+    ws.send(JSON.stringify({ type: 'list_rooms' }));
+  });
+  document.getElementById('btnListUsers').addEventListener('click', (e) => {
+    ws.send(JSON.stringify({ type: 'list_users' }));
+  });
+  document.getElementById('btnListRoomUsers').addEventListener('click', (e) => {
+    const room = document.getElementById('room').value;
+    ws.send(JSON.stringify({ type: 'list_room_users', room: room }));
+  });
+
+  function append(msg) {
+    const el = document.createElement('div');
+    el.textContent = msg;
+    messages.appendChild(el);
+    messages.scrollTop = messages.scrollHeight;
+  }
+  </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  viper2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VERSION: "1.0.0"
+        # allow injecting a server id from environment when building
+        SERVER_ID: "${SERVER_ID:-}"
+    image: viper2:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./config.yaml:/app/config.yaml:ro
+      - ./logs:/app/logs
+    environment:
+      # runtime SERVER_ID env (can be set from host env: export SERVER_ID=abc)
+      - SERVER_ID=${SERVER_ID:-local}
+    # pass default command args to the entrypoint (the binary)
+    command: ["serve", "--log-encoding", "console"]
+    restart: unless-stopped

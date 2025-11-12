@@ -1,0 +1,45 @@
+app:
+  name: myapp
+  port: 8080
+debug: true
+
+# zap logging example
+log:
+  level: info
+  development: false
+  encoding: json # or console
+  output_paths:
+    - stdout
+    - ./logs/app.log
+  error_output_paths:
+    - stderr
+  encoder:
+    time_key: time
+    level_key: level
+    name_key: logger
+    caller_key: caller
+    message_key: msg
+    stacktrace_key: stack
+    line_ending: "\n"
+    # time_format takes precedence over time_encode
+    time_format: "2006-01-02T15:04:05.000Z07:00"
+    # or use predefined encoders: iso8601, millis, nanos, seconds
+    # time_encode: iso8601
+    level_encode: lowercase
+    caller_encode: short
+  name_encode: short
+  duration_encode: string
+  sampling:
+    enabled: true
+    initial: 100
+    thereafter: 100
+  # rotation: per-file rotation settings (applies to file output paths)
+  # max_size_mb: maximum size in megabytes before rotation
+  # max_backups: number of rotated files to keep
+  # max_age_days: maximum number of days to retain old log files
+  # compress: whether to gzip rotated files
+  rotation:
+    max_size_mb: 50
+    max_backups: 7
+    max_age_days: 30
+    compress: false

@@ -1,0 +1,26 @@
+# Ignore git and build artifacts
+.git
+.gitignore
+Dockerfile
+*.md
+*.log
+*.exe
+*.out
+**/node_modules
+**/vendor
+**/.cache
+**/.idea
+**/.vscode
+
+# Go build cache and temporary files
+bin
+out
+*.test
+
+# Logs and local runtime files
+logs
+/tmp
+
+# OS files
+.DS_Store
+Thumbs.db

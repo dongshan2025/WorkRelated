@@ -124,7 +124,17 @@ git reset --hard            不保留工作区的修改      不保留暂存区�
 git reset --mixed           保留工作区的修改        不保留暂存区的修改
 ![alt text](<git reset.png>)
 
+# 使用Reset清除历史提交记录，并保存所有修改
+## 查看历史提交记录，得到要想回退到的提交点
+git log --oneline
+git reset --soft a594c40
+git add .
+git commit -m "msg"
+git push origin main --force
 
+# 误提交后的操作
+git reflog
+git reset --hard a594c40
 # ================================================== 查看历史提交记录 ==================================================
 # 查看本地仓库的历史提交记录
 git log
@@ -138,3 +148,38 @@ git fetch origin // 这不会自动合并到你的本地分支
 git log origin/main // 查看远程仓库main分支的历史提交记录
 git log origin/main --oneline
 
+# ================================================== 比较差异 ==================================================
+# 比较工作区和暂存区的差异
+git diff
+
+# 比较工作区和本地版本库的差异
+git diff HEAD
+ 
+# 比较暂存区和本地版本库的差异
+git diff --cached
+
+# 比较两个本地版本库的差异
+git log --oneline
+git diff 5af90b8 b270efb  // 后面跟两个版本的提交ID
+
+HEAD 表示当前分支的最新提交
+HEAD~ 表示HEAD之前的一个版本
+HEAD~2 表示HEAD之前的两个版本
+
+# 比较两个本地版本库特定文件的差异
+git diff HEAD HEAD~ .vscode/launch.json
+
+![alt text](<git diff.png>)
+
+# ================================================== 文件显示及删除 ==================================================
+# 显示git ls-files命令的用法
+git ls-files -h
+
+# 删除文件(从工作区和暂存区同时删除)
+git rm filename
+
+# 把文件从暂存区删除，但保留在当期工作区中
+git rm --cached filename
+
+# 递归删除某个目录下的所有文件
+git rm -r *

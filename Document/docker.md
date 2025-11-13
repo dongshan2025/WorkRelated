@@ -53,8 +53,8 @@ docker rmi -a ubuntu 或 docker rmi --all-tags ubuntu
 # 强制删除镜像，即使该镜像正在被容器使用
 docker rmi -f ubuntu:latest 或 docker rmi --force ubuntu:latest
 
-# 删除没有标签的悬空镜像
-docker rmi -d
+# 删除所有悬空镜像
+docker image prune -a -f
 
 # 删除镜像但是保留其子镜像
 docker rmi --no-prune ubuntu:latest

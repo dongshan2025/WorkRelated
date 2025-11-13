@@ -83,6 +83,22 @@
             "mode": "auto",
             "program": "${workspaceFolder}/AWS",
             "args":[]
+        },
+        {
+            "name": "ETCD",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/ETCD",
+            "args":[]
+        },
+        {
+            "name": "ETCD/discovery",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/ETCD/discovery",
+            "args":[]
         }
     ]
 }

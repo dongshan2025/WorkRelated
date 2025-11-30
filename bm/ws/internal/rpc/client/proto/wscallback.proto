@@ -1,0 +1,31 @@
+syntax = "proto3";
+option go_package = ".;wscallback";
+
+// 定义回调服务
+service Callback {
+    // APP端成功连入WS服务后，WS服务调用该方法通知业务系统
+    rpc Open(OpenRequest) returns (OpenResponse) {}
+    // APP端与WS服务断开后，WS服务调用该方法通知业务系统
+    rpc Close(CloseRequest) returns (CloseResponse) {}
+}
+
+message OpenRequest {
+    string wsid = 1;
+}
+
+message OpenResponse {
+    CallbackStatus status = 1;
+}
+
+message CloseRequest {
+    string wsid = 1;
+}
+
+message CloseResponse {
+    CallbackStatus status = 1;
+}
+
+enum CallbackStatus {
+    CALLBACK_SUCCESS = 0; // 发送成功
+    CALLBACK_FAILED = 1; // 发送失败
+}

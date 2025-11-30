@@ -12,9 +12,9 @@ import (
 	clientv3 "go.etcd.io/etcd/client/v3"
 )
 
-const (
-	ServiceName = "/PushService"
-)
+// const (
+// 	ServiceName = "/PushService"
+// )
 
 type ServiceDiscovery struct {
 	client     *clientv3.Client
@@ -40,8 +40,8 @@ func NewServiceDiscovery(endpoints []string, watchedKey string) (*ServiceDiscove
 }
 
 // 服务发现
-func (sd *ServiceDiscovery) DiscoveryService() error {
-	resp, err := sd.client.Get(context.Background(), ServiceName, clientv3.WithPrefix())
+func (sd *ServiceDiscovery) DiscoveryService(serviceName string) error {
+	resp, err := sd.client.Get(context.Background(), serviceName, clientv3.WithPrefix())
 	if err != nil {
 		return err
 	}
@@ -92,12 +92,12 @@ func (sd *ServiceDiscovery) handleDeleteEvent(event *clientv3.Event) {
 }
 
 func main() {
-	serviceDiscovery, err := NewServiceDiscovery([]string{"192.168.252.101:2379", "192.168.252.102:2379", "192.168.252.103:2379"}, ServiceName)
+	serviceDiscovery, err := NewServiceDiscovery([]string{"192.168.252.101:2379", "192.168.252.102:2379", "192.168.252.103:2379"}, "/PushService")
 	if err != nil {
 		log.Fatal(err)
 		return
 	}
-	err = serviceDiscovery.DiscoveryService()
+	err = serviceDiscovery.DiscoveryService("/PushService")
 	if err != nil {
 		log.Fatal(err)
 		return

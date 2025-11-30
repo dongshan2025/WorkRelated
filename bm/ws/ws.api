@@ -1,0 +1,15 @@
+syntax = "v1"
+
+type GetWsConnectReq {
+	Wsid string `form:"wsid"`
+}
+
+@server (
+	group:  notify
+	prefix: /v1
+)
+service ws {
+	@handler GetWsConnect
+	get /ws (GetWsConnectReq)
+}
+

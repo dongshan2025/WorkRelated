@@ -1,0 +1,43 @@
+// protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative wsserver.proto
+syntax = "proto3";
+option go_package = ".;wsserver";
+
+// 定义通知服务
+service WsServer {
+    rpc Preconnect (PreconnectRequest) returns (PreconnectResponse) {}
+    rpc Send (SendRequest) returns (SendResponse) {}
+}
+
+// 获取wsid请求参数
+message PreconnectRequest {
+    string token = 1; // 业务系统用户登录Token
+}
+
+// 获取wsid响应参数
+message PreconnectResponse {
+    WsServerStatus status = 1;
+    string wsid = 2; // WS服务生成的唯一WebSocket连接ID
+    string wsAddr = 3; // WebSocket服务地址
+    string grpcAddr = 4; // gRPC服务地址
+    string machineId = 5; // 机器ID
+}
+
+// 发送通知请求参数
+message SendRequest {
+    repeated string wsid = 1; // 指定要发送的wsid数组
+    string senderWsid = 2; // 发送人的wsid
+    string message = 3; // 发送的消息内容
+}
+
+// 发送通知响应参数
+message SendResponse {
+    WsServerStatus status = 1;
+    repeated string offlineWisd = 2; // 离线的目标对象的wsid数组
+    string senderWsid = 3; // 发送人的wsid
+    string senderStatus = 4; // 1:在线 2:离线
+}
+
+enum WsServerStatus {
+    WSSERVER_SUCCESS = 0; // 发送成功
+    WSSERVER_FAILED = 1; // 发送失败
+}

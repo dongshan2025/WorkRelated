@@ -143,10 +143,10 @@ func (m *Manager) serveWS(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Verify OTP is existing
-	if !m.otps.VerifyOTP(otp) {
-		w.WriteHeader(http.StatusUnauthorized)
-		return
-	}
+	// if !m.otps.VerifyOTP(otp) {
+	// 	w.WriteHeader(http.StatusUnauthorized)
+	// 	return
+	// }
 
 	log.Println("New connection")
 	// Begin by upgrading the HTTP request

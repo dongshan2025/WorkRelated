@@ -1,0 +1,49 @@
+Name: ws-api-service
+Host: 0.0.0.0
+Port: 9991
+Stat: false
+RegisterIP: 192.168.252.103
+
+RPC:
+  Name: ws-grpc-service
+  Host: 0.0.0.0
+  Port: 9992
+
+CallBackRPC:
+  IsOpen: false
+  Host: 0.0.0.0
+  Port: 40001
+
+Log:
+  Mode: file
+  Level: info
+  Path: ./logs
+  Rotation: daily
+  # MaxSize: 30
+  # MaxAge: 7
+  # Compress: true
+  KeepDays: 2
+
+Redis:
+  Addr: 192.168.252.101:6379
+  Password: 
+  DB: 0
+
+Etcd:
+  Hosts:
+  - 192.168.252.101:2379
+  - 192.168.252.102:2379
+  - 192.168.252.103:2379
+
+Kafka:
+  IsOpen: false
+  Brokers:
+  - 192.168.252.101:9092
+  - 192.168.252.102:9092
+  - 192.168.252.103:9092
+
+Prometheus:
+  Host: 0.0.0.0
+  Port: 9993
+  Path: /metrics
+

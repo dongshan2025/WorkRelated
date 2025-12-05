@@ -9,7 +9,8 @@ const (
 )
 
 var MachineID string
-var RegisterIP string
+var RegisterWsAddr string
+var RegisterRpcIp string
 var ApiPort int
 var RpcPort int
 var KafkaIsOpen bool

@@ -50,13 +50,15 @@ func (c *Client) ReadMessage() {
 	c.conn.SetPongHandler(c.pongHandler)
 
 	for {
-		_, _, err := c.conn.ReadMessage()
+		_, msg, err := c.conn.ReadMessage()
 		if err != nil {
 			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
 				logx.Errorf("[%s]的WebSocket连接发生错误，错误信息为：%v", c.wsid, err)
 			}
 			break
 		}
+
+		fmt.Printf("收到客户端信息为：%s\n", string(msg))
 	}
 }
 

@@ -2,7 +2,8 @@ Name: ws-api-service
 Host: 0.0.0.0
 Port: 9991
 Stat: false
-RegisterIP: 192.168.252.103
+RegisterWsAddr: ws://192.168.252.101:9991 #这个配置的是外网的网关地址和端口号
+RegisterRpcIp: 192.168.252.102 #这个配置的是gRPC这台机器的内网地址
 
 RPC:
   Name: ws-grpc-service
@@ -10,7 +11,7 @@ RPC:
   Port: 9992
 
 CallBackRPC:
-  IsOpen: false
+  IsOpen: true
   Host: 0.0.0.0
   Port: 40001
 
@@ -36,7 +37,7 @@ Etcd:
   - 192.168.252.103:2379
 
 Kafka:
-  IsOpen: false
+  IsOpen: true
   Brokers:
   - 192.168.252.101:9092
   - 192.168.252.102:9092

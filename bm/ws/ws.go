@@ -53,15 +53,6 @@ func main() {
 	}
 	logx.Infof("Redis连接成功，pong信息为：%s", pong)
 
-	// 启动WS的gRPC服务
-	go wsgrpc.NewRpcWsServer(ctx, &c)
-
-	// 注册服务
-	go wsetcd.RegisterService(c.RPC.Name, c.RegisterIP, c.RPC.Port, c.Etcd.Hosts)
-
-	time.Sleep(5 * time.Second)
-	logx.Infof("gRPC服务注册成功")
-
 	// 获取WS服务的机器ID
 	machineId, err := wscache.GetInstance().Incr(global.WS_MACHINEID)
 	if err != nil {
@@ -72,9 +63,19 @@ func main() {
 	global.MachineID = fmt.Sprintf("%d", machineId)
 	global.ApiPort = c.Port
 	global.RpcPort = c.RPC.Port
-	global.RegisterIP = c.RegisterIP
+	global.RegisterWsAddr = c.RegisterWsAddr
+	global.RegisterRpcIp = c.RegisterRpcIp
 	global.KafkaIsOpen = c.Kafka.IsOpen
 	global.CallbackIsOpen = c.CallbackRpc.IsOpen
+
+	// 启动WS的gRPC服务
+	go wsgrpc.NewRpcWsServer(ctx, &c)
+
+	// 注册服务
+	go wsetcd.RegisterService(c.RPC.Name, c.RegisterRpcIp, c.RPC.Port, c.Etcd.Hosts)
+
+	time.Sleep(5 * time.Second)
+	logx.Infof("gRPC服务注册成功")
 
 	// 实例化雪花算法
 	err = wsuuid.NewUuidInstance(uint16(machineId))
@@ -98,11 +99,6 @@ func main() {
 
 	logx.Infof("WS-API服务在[%s:%d]上启动中...", c.Host, c.Port)
 
-	// var rqeCounter = promauto.NewCounter(prometheus.CounterOpts{
-	// 	Name: "dongshan_counter",
-	// 	Help: "The total number of HTTP requests",
-	// })
-	// rqeCounter.Inc()
 	var wsConnecter = promauto.NewGauge(prometheus.GaugeOpts{
 		Name: "WebSocket_Count",
 		Help: "当前WebSocket连接数",

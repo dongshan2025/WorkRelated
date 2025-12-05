@@ -68,8 +68,8 @@ func (s *WsServer) Preconnect(ctx context.Context, req *wsserver.PreconnectReque
 		Status:    wsserver.WsServerStatus_WSSERVER_SUCCESS,
 		Wsid:      wsid,
 		MachineId: global.MachineID,
-		WsAddr:    fmt.Sprintf("%s:%d", global.RegisterIP, global.ApiPort),
-		GrpcAddr:  fmt.Sprintf("%s:%d", global.RegisterIP, global.RpcPort),
+		WsAddr:    fmt.Sprintf("%s/v1/ws?wsid=%s", global.RegisterWsAddr, wsid),
+		GrpcAddr:  fmt.Sprintf("%s:%d", global.RegisterRpcIp, global.RpcPort),
 	}, nil
 }
 

@@ -7,12 +7,13 @@ import "github.com/zeromicro/go-zero/rest"
 
 type Config struct {
 	rest.RestConf
-	RPC         RpcConf
-	Etcd        EtcdConf
-	RegisterIP  string
-	Redis       RedisConf
-	CallbackRpc CallbackRpcConf
-	Kafka       KafkaConf
+	RPC            RpcConf
+	Etcd           EtcdConf
+	RegisterWsAddr string
+	RegisterRpcIp  string
+	Redis          RedisConf
+	CallbackRpc    CallbackRpcConf
+	Kafka          KafkaConf
 }
 
 type RpcConf struct {

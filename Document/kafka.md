@@ -114,3 +114,14 @@ cd /opt/kafka/bin
 
 ## 查看集群ID
 ./kafka-cluster.sh cluster-id --bootstrap-server localhost:9092
+
+
+
+
+
+
+
+
+
+
+docker run -p 9092:9092 -d --restart always --name kafka apache/kafka:4.0.1

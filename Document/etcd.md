@@ -152,7 +152,7 @@ https://www.cnblogs.com/crow1840/p/17506992.html
 	docker exec -it etcd etcdctl lease revoke 225e9a76087e3f10 #租约撤销的同时，被授予租约的KV会被删除
 
 10. 查看所有键值
-	etcdctl get --prefix ""
+	docker exec -it etcd etcdctl get --prefix ""
 
 
 

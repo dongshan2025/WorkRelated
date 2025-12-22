@@ -2,7 +2,7 @@ https://etcd.io/docs/v3.4/op-guide/container/
 https://etcd.io/docs/v3.7/op-guide/clustering/
 
 
-===============================================================================
+# ================================================== ETCD1.SH ==================================================
 REGISTRY=quay.io/coreos/etcd
 # available from v3.6.5
 
@@ -35,7 +35,7 @@ docker run \
   --advertise-client-urls http://${THIS_IP}:2379 --listen-client-urls http://0.0.0.0:2379 \
   --initial-cluster ${CLUSTER} \
   --initial-cluster-state ${CLUSTER_STATE} --initial-cluster-token ${TOKEN}
-===============================================================================
+# ================================================== ETCD2.SH ==================================================
 REGISTRY=quay.io/coreos/etcd
 # available from v3.6.5
 
@@ -68,7 +68,7 @@ docker run \
   --advertise-client-urls http://${THIS_IP}:2379 --listen-client-urls http://0.0.0.0:2379 \
   --initial-cluster ${CLUSTER} \
   --initial-cluster-state ${CLUSTER_STATE} --initial-cluster-token ${TOKEN}
-===============================================================================
+# ================================================== ETCD3.SH ==================================================
 REGISTRY=quay.io/coreos/etcd
 # available from v3.6.5
 
@@ -159,5 +159,7 @@ https://www.cnblogs.com/crow1840/p/17506992.html
 
 
 
+docker run -p 2379:2379 -p 2380:2380 -d --restart always --name etcd quay.io/coreos/etcd:v3.6.5
 
 
+docker run -p 2379:2379 -d --restart always --name etcd quay.io/coreos/etcd:v3.6.5

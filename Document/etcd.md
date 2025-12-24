@@ -163,3 +163,37 @@ docker run -p 2379:2379 -p 2380:2380 -d --restart always --name etcd quay.io/cor
 
 
 docker run -p 2379:2379 -d --restart always --name etcd quay.io/coreos/etcd:v3.6.5
+
+
+
+
+# ================================================== ETCD单机配置 ==================================================
+REGISTRY=quay.io/coreos/etcd
+# available from v3.6.5
+
+# For each machine
+ETCD_VERSION=v3.6.5
+TOKEN=my-etcd-token
+CLUSTER_STATE=new
+NAME_1=etcd-node-0
+HOST_1=192.168.26.100
+CLUSTER=${NAME_1}=http://${HOST_1}:2380
+DATA_DIR=/var/lib/etcd
+
+# For node 1
+THIS_NAME=${NAME_1}
+THIS_IP=${HOST_1}
+docker run \
+  -p 2379:2379 \
+  -p 2380:2380 \
+  -d \
+  --volume=${DATA_DIR}:/etcd-data \
+  --restart always \
+  --name etcd1 ${REGISTRY}:${ETCD_VERSION} \
+  /usr/local/bin/etcd \
+  --data-dir=/etcd-data --name ${THIS_NAME} \
+  --initial-advertise-peer-urls http://${THIS_IP}:2380 --listen-peer-urls http://0.0.0.0:2380 \
+  --advertise-client-urls http://${THIS_IP}:2379 --listen-client-urls http://0.0.0.0:2379 \
+  --initial-cluster ${CLUSTER} \
+  --initial-cluster-state ${CLUSTER_STATE} --initial-cluster-token ${TOKEN}
+

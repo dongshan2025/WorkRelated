@@ -61,7 +61,7 @@ git branch -a
 git switch main
 
 # 将dev分支合并到main分支
-git merge dev
+git merge dev   
 
 # 删除本地dev分支
 git branch -d dev

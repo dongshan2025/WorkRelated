@@ -197,3 +197,25 @@ docker run \
   --initial-cluster ${CLUSTER} \
   --initial-cluster-state ${CLUSTER_STATE} --initial-cluster-token ${TOKEN}
 
+
+# ================================================== ETCD单机配置 docker-compose.yaml ==================================================
+version: "3.7"
+
+services:
+    etcd:
+        image: "quay.io/coreos/etcd:3.6.5"
+        container_name: "etcd"
+        restart: "always"
+        ports:
+            - 2379:2379
+        environment:
+            - TZ=Asia/Shanghai
+            - ALLOW_NONE_AUTHENTICATION=yes
+            - ETCD_ADVERTISE_CLIENT_URLS=http://etcd:2379
+
+
+
+
+
+
+https://oldme.net/article/32

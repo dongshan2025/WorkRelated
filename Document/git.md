@@ -197,6 +197,9 @@ git tag tag_name_miso_1.7.0 -m "描述信息"
 # 推送标签
 git push origin tag_name_miso_1.7.0
 
+# 删除标签
+git tag -d 标签名 // 删除本地
+git push origin -d 标签名 // 删除远程
 
 
 

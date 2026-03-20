@@ -99,6 +99,14 @@
             "mode": "auto",
             "program": "${workspaceFolder}/ETCD/discovery",
             "args":[]
+        },
+        {
+            "name": "QiNiu",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/QiNiu",
+            "args":[]
         }
     ]
 }

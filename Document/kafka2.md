@@ -40,3 +40,10 @@ docker run --name=kafka3 \
 	-e KAFKA_LISTENERS="PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093" \
 	-e KAFKA_ADVERTISED_LISTENERS="PLAINTEXT://192.168.252.104:39092" \
 	apache/kafka:4.0.1
+
+
+
+
+
+docker run --name redis -p 6379:6379 -d --restart always redis:8.2.3
+docker run --name kafka -p 9092:9092 -d --restart always apache/kafka:4.0.1
